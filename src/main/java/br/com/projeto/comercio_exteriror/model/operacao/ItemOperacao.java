@@ -20,6 +20,9 @@ public class ItemOperacao {
     @Column(name = "id_item")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "quantidade")
     private Float quantidade;
 

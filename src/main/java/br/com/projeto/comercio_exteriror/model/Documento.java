@@ -21,6 +21,9 @@ public class Documento {
     @Column(name = "id_documento")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "tipo_documento", length = 100)
     private String tipoDocumento;
 

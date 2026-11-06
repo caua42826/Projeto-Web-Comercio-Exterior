@@ -19,6 +19,9 @@ public class IndicadorMensal {
     @Column(name = "id_indicador")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "total_operacoes")
     private Integer totalOperacoes;
 

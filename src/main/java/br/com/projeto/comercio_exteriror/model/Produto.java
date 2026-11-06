@@ -20,6 +20,9 @@ public class Produto {
     @Column(name = "id_produto")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "descricao_produto", nullable = false, length = 255)
     private String descricao;
 

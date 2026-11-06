@@ -10,6 +10,8 @@ import br.com.projeto.comercio_exteriror.model.Transportadora;
 import br.com.projeto.comercio_exteriror.enums.StatusOperacao;
 import br.com.projeto.comercio_exteriror.enums.TipoOperacao;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,11 +30,15 @@ public class Operacao {
     @Column(name = "id_operacao")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "data_operacao")
     private LocalDate data;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_operacao", nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "tipo_operacao", nullable = false, length = 40)
     private TipoOperacao tipo;
 
     @Column(name = "incoterm", length = 20)
@@ -51,7 +57,8 @@ public class Operacao {
     private Double precoTotalKG;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status_operacao")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "status_operacao", length = 40)
     private StatusOperacao status;
 
     @Embedded

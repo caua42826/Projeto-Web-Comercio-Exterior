@@ -19,6 +19,9 @@ public class Empresa {
     @Column(name = "id_empresa")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "nome_empresa", nullable = false, length = 150)
     private String nome;
 

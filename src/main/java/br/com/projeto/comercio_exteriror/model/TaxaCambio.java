@@ -20,6 +20,9 @@ public class TaxaCambio {
     @Column(name = "id_taxa")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "moeda", nullable = false, length = 10)
     private String moeda;
 

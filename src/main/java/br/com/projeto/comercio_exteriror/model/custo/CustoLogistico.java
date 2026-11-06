@@ -21,6 +21,9 @@ public class CustoLogistico {
     @Column(name = "id_custo")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "mes_ano")
     private LocalDate mesAno;
 

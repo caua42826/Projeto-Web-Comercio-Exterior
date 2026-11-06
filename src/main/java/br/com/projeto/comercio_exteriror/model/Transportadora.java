@@ -19,6 +19,9 @@ public class Transportadora {
     @Column(name = "id_transportadora")
     private Integer id;
 
+    @Column(name = "id_origem_planilha", unique = true)
+    private Integer idOrigemPlanilha;
+
     @Column(name = "nome_transportadora", nullable = false, length = 150)
     private String nome;
 
