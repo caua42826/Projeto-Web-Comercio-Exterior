@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Parceiros | Comércio Exterior</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body>
+<div th:replace="~{fragments/navegacao :: barra}"></div><main class="container">
+    <header class="page-header"><div><p class="eyebrow">Cadastros</p><h1>Parceiros</h1><p class="subtitle">Empresas e organizações que participam das operações.</p></div><a class="button button-primary" th:href="@{/parceiros/novo}">Novo parceiro</a></header>
+    <div class="notice notice-success" th:if="${mensagem}" th:text="${mensagem}"></div><div class="notice notice-error" th:if="${erro}" th:text="${erro}"></div>
+    <section class="panel"><div class="table-scroll" th:if="${!parceiros.isEmpty()}"><table><thead><tr><th>Nome</th><th>País</th><th>Continente</th><th>Tipo</th><th>Setor</th><th>Confiabilidade</th><th>Status</th><th class="actions-heading">Ações</th></tr></thead><tbody>
+    <tr th:each="p : ${parceiros}"><td class="strong" th:text="${p.nome}"></td><td th:text="${p.pais ?: '—'}"></td><td th:text="${p.continente ?: '—'}"></td><td th:text="${p.tipo ?: '—'}"></td><td th:text="${p.setor ?: '—'}"></td><td th:text="${p.avaliacaoConfiabilidade != null ? p.avaliacaoConfiabilidade : '—'}"></td><td><span class="badge" th:classappend="${p.status} ? ' badge-active' : ' badge-inactive'" th:text="${p.status} ? 'Ativo' : 'Inativo'"></span></td><td class="actions"><a class="button button-small button-secondary" th:href="@{/parceiros/{id}/editar(id=${p.id})}">Editar</a><form th:if="${p.status}" th:action="@{/parceiros/{id}/desativar(id=${p.id})}" method="post"><button class="button button-small button-danger" type="submit">Desativar</button></form></td></tr>
+    </tbody></table></div><div class="empty-state" th:if="${parceiros.isEmpty()}"><h2>Nenhum parceiro cadastrado</h2><a class="button button-primary" th:href="@{/parceiros/novo}">Cadastrar parceiro</a></div></section>
+</main></body></html>

@@ -1,0 +1,20 @@
+<header class="site-header" xmlns:th="http://www.thymeleaf.org" th:fragment="barra">
+    <div class="site-header-inner">
+        <a class="brand" th:href="@{/}" aria-label="Comércio Exterior - início">
+            <span class="brand-mark" aria-hidden="true">CE</span>
+            <span>
+                <span class="brand-name">Comércio Exterior</span>
+                <span class="brand-caption">Gestão de operações</span>
+            </span>
+        </a>
+        <nav class="site-nav" aria-label="Navegação principal">
+            <a th:href="@{/operacoes}">Operações</a>
+            <a th:href="@{/empresas}">Empresas</a>
+            <a th:href="@{/parceiros}">Parceiros</a>
+            <a th:href="@{/produtos}">Produtos</a>
+            <a th:href="@{/transportadoras}">Transportadoras</a>
+            <a th:href="@{/taxas-cambio}">Câmbio</a>
+            <a th:href="@{/indicadores}">Indicadores</a>
+        </nav>
+    </div>
+</header>

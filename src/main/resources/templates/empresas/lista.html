@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Empresas | Comércio Exterior</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navegacao :: barra}"></div>
+<main class="container">
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">Comércio exterior</p>
+            <h1>Empresas</h1>
+            <p class="subtitle">Cadastre e consulte as empresas participantes das operações.</p>
+        </div>
+        <a class="button button-primary" th:href="@{/empresas/nova}">Nova empresa</a>
+    </header>
+
+    <div class="notice notice-success" th:if="${mensagem}" th:text="${mensagem}"></div>
+    <div class="notice notice-error" th:if="${erro}" th:text="${erro}"></div>
+
+    <section class="panel" aria-label="Lista de empresas">
+        <div class="table-scroll" th:if="${!empresas.isEmpty()}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Setor</th>
+                    <th>Cidade / Estado</th>
+                    <th>Porte</th>
+                    <th>Atuação</th>
+                    <th>Status</th>
+                    <th class="actions-heading">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="empresa : ${empresas}">
+                    <td class="strong" th:text="${empresa.nome}">Nome da empresa</td>
+                    <td th:text="${empresa.setor != null ? empresa.setor : '—'}">Setor</td>
+                    <td>
+                        <span th:text="${empresa.cidade != null ? empresa.cidade : '—'}">Cidade</span>
+                        <span th:if="${empresa.estado != null}" th:text="${' / ' + empresa.estado}"></span>
+                    </td>
+                    <td th:text="${empresa.porte != null ? empresa.porte : '—'}">Porte</td>
+                    <td th:text="${empresa.tipoAtuacao != null ? empresa.tipoAtuacao : '—'}">Atuação</td>
+                    <td>
+                        <span class="badge" th:classappend="${empresa.status} ? ' badge-active' : ' badge-inactive'"
+                              th:text="${empresa.status} ? 'Ativa' : 'Inativa'">Ativa</span>
+                    </td>
+                    <td class="actions">
+                        <a class="button button-small button-secondary"
+                           th:href="@{/empresas/{id}/editar(id=${empresa.id})}">Editar</a>
+                        <form th:if="${empresa.status}" th:action="@{/empresas/{id}/desativar(id=${empresa.id})}" method="post">
+                            <button class="button button-small button-danger" type="submit">Desativar</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="empty-state" th:if="${empresas.isEmpty()}">
+            <h2>Nenhuma empresa cadastrada</h2>
+            <p>Comece adicionando uma empresa para usar nos registros do projeto.</p>
+            <a class="button button-primary" th:href="@{/empresas/nova}">Cadastrar empresa</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

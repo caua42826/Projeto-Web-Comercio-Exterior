@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' | Comércio Exterior'">Empresa | Comércio Exterior</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navegacao :: barra}"></div>
+<main class="container container-narrow">
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">Comércio exterior</p>
+            <h1 th:text="${titulo}">Empresa</h1>
+            <p class="subtitle">Os campos marcados com * são obrigatórios.</p>
+        </div>
+        <a class="button button-secondary" th:href="@{/empresas}">Voltar</a>
+    </header>
+
+    <section class="panel form-panel">
+        <form th:object="${empresa}"
+              th:action="${empresa.id == null} ? @{/empresas} : @{/empresas/{id}(id=${empresa.id})}"
+              method="post">
+            <div class="form-grid">
+                <div class="field field-full">
+                    <label for="nome">Nome da empresa *</label>
+                    <input id="nome" type="text" th:field="*{nome}" maxlength="150" required autofocus>
+                    <small class="field-error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+                </div>
+
+                <div class="field">
+                    <label for="setor">Setor</label>
+                    <input id="setor" type="text" th:field="*{setor}" maxlength="100">
+                    <small class="field-error" th:if="${#fields.hasErrors('setor')}" th:errors="*{setor}"></small>
+                </div>
+                <div class="field">
+                    <label for="tipoAtuacao">Tipo de atuação</label>
+                    <input id="tipoAtuacao" type="text" th:field="*{tipoAtuacao}" maxlength="100">
+                    <small class="field-error" th:if="${#fields.hasErrors('tipoAtuacao')}" th:errors="*{tipoAtuacao}"></small>
+                </div>
+                <div class="field">
+                    <label for="cidade">Cidade</label>
+                    <input id="cidade" type="text" th:field="*{cidade}" maxlength="100">
+                    <small class="field-error" th:if="${#fields.hasErrors('cidade')}" th:errors="*{cidade}"></small>
+                </div>
+                <div class="field">
+                    <label for="estado">Estado</label>
+                    <input id="estado" type="text" th:field="*{estado}" maxlength="100">
+                    <small class="field-error" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
+                </div>
+                <div class="field">
+                    <label for="porte">Porte</label>
+                    <input id="porte" type="text" th:field="*{porte}" maxlength="50">
+                    <small class="field-error" th:if="${#fields.hasErrors('porte')}" th:errors="*{porte}"></small>
+                </div>
+                <div class="field">
+                    <label for="status">Status *</label>
+                    <select id="status" th:field="*{status}" required>
+                        <option value="">Selecione</option>
+                        <option value="true">Ativa</option>
+                        <option value="false">Inativa</option>
+                    </select>
+                    <small class="field-error" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></small>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a class="button button-secondary" th:href="@{/empresas}">Cancelar</a>
+                <button class="button button-primary" type="submit">Salvar empresa</button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

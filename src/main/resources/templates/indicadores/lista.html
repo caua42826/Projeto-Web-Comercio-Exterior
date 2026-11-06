@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Indicadores mensais | Comércio Exterior</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body>
+<div th:replace="~{fragments/navegacao :: barra}"></div><main class="container"><header class="page-header"><div><p class="eyebrow">Consulta</p><h1>Indicadores mensais</h1><p class="subtitle">Resumo mensal de prazos, atrasos e custos das operações.</p></div><a class="button button-secondary" th:href="@{/operacoes}">Ver operações</a></header>
+<section class="panel"><div class="table-scroll" th:if="${!indicadores.isEmpty()}"><table><thead><tr><th>Mês</th><th>Operações</th><th>Peso total (kg)</th><th>Trânsito médio (dias)</th><th>Desembaraço médio (dias)</th><th>Atrasos (%)</th><th>Custo logístico</th></tr></thead><tbody>
+<tr th:each="i : ${indicadores}"><td th:text="${i.mesAno != null ? #temporals.format(i.mesAno, 'MM/yyyy') : '—'}"></td><td th:text="${i.totalOperacoes}"></td><td th:text="${i.pesoTotalKg}"></td><td th:text="${i.tempoMedioTransDias}"></td><td th:text="${i.tempoMedioDesDias}"></td><td th:text="${i.percentualAtraso}"></td><td th:text="${i.custoLogisticoTotal}"></td></tr>
+</tbody></table></div><div class="empty-state" th:if="${indicadores.isEmpty()}"><h2>Ainda não há indicadores calculados</h2><p>Esta tela é somente para consulta. Os indicadores serão gerados a partir das operações cadastradas em uma próxima etapa.</p></div></section></main></body></html>
