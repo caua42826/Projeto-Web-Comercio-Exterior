@@ -1,8 +1,91 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Indicadores mensais | Comércio Exterior</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Indicadores mensais | Comércio Exterior</title>
+    <th:block th:replace="~{fragments/bootstrap :: estilos}"></th:block>
+</head>
 <body>
-<div th:replace="~{fragments/navegacao :: barra}"></div><main class="container"><header class="page-header"><div><p class="eyebrow">Consulta</p><h1>Indicadores mensais</h1><p class="subtitle">Resumo mensal de prazos, atrasos e custos das operações.</p></div><a class="button button-secondary" th:href="@{/operacoes}">Ver operações</a></header>
-<section class="panel"><div class="table-scroll" th:if="${!indicadores.isEmpty()}"><table><thead><tr><th>Mês</th><th>Operações</th><th>Peso total (kg)</th><th>Trânsito médio (dias)</th><th>Desembaraço médio (dias)</th><th>Atrasos (%)</th><th>Custo logístico</th></tr></thead><tbody>
-<tr th:each="i : ${indicadores}"><td th:text="${i.mesAno != null ? #temporals.format(i.mesAno, 'MM/yyyy') : '—'}"></td><td th:text="${i.totalOperacoes}"></td><td th:text="${i.pesoTotalKg}"></td><td th:text="${i.tempoMedioTransDias}"></td><td th:text="${i.tempoMedioDesDias}"></td><td th:text="${i.percentualAtraso}"></td><td th:text="${i.custoLogisticoTotal}"></td></tr>
-</tbody></table></div><div class="empty-state" th:if="${indicadores.isEmpty()}"><h2>Ainda não há indicadores calculados</h2><p>Esta tela é somente para consulta. Os indicadores serão gerados a partir das operações cadastradas em uma próxima etapa.</p></div></section></main></body></html>
+<div th:replace="~{fragments/navegacao :: barra}"></div>
+<main class="container dashboard-page">
+    <header class="page-header dashboard-page-header">
+        <div>
+            <p class="eyebrow">Painel analítico</p>
+            <h1>Indicadores mensais</h1>
+            <p class="subtitle">Visão consolidada de volume, prazos e custos das operações.</p>
+        </div>
+        <a class="btn button button-secondary" th:href="@{/operacoes}">Ver operações</a>
+    </header>
+
+    <section class="row g-3 dashboard-stats" aria-label="Resumo dos indicadores">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <article class="card dashboard-stat h-100">
+                <div class="card-body">
+                    <span class="dashboard-stat-label">Operações no período</span>
+                    <strong class="dashboard-stat-value" th:text="${#numbers.formatInteger(resumo.totalOperacoes, 1, 'COMMA')}">0</strong>
+                    <span class="dashboard-stat-note">Total consolidado dos indicadores</span>
+                </div>
+            </article>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <article class="card dashboard-stat h-100">
+                <div class="card-body">
+                    <span class="dashboard-stat-label">Trânsito médio</span>
+                    <strong class="dashboard-stat-value"><span th:text="${#numbers.formatDecimal(resumo.transitoMedio, 1, 'COMMA', 1, 'POINT')}">0</span><small> dias</small></strong>
+                    <span class="dashboard-stat-note">Média ponderada pelo número de operações</span>
+                </div>
+            </article>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <article class="card dashboard-stat h-100">
+                <div class="card-body">
+                    <span class="dashboard-stat-label">Desembaraço médio</span>
+                    <strong class="dashboard-stat-value"><span th:text="${#numbers.formatDecimal(resumo.desembaracoMedio, 1, 'COMMA', 1, 'POINT')}">0</span><small> dias</small></strong>
+                    <span class="dashboard-stat-note">Média ponderada pelo número de operações</span>
+                </div>
+            </article>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <article class="card dashboard-stat h-100">
+                <div class="card-body">
+                    <span class="dashboard-stat-label">Custo logístico total</span>
+                    <strong class="dashboard-stat-value dashboard-stat-currency"><small>R$</small> <span th:text="${#numbers.formatDecimal(resumo.custoTotal, 1, 'COMMA', 2, 'POINT')}">0,00</span></strong>
+                    <span class="dashboard-stat-note">Soma dos custos registrados</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="dashboard-table-card mt-4">
+        <div class="dashboard-table-heading">
+            <div>
+                <h2>Histórico de indicadores</h2>
+                <p>Detalhamento mensal dos valores registrados no banco.</p>
+            </div>
+            <span class="badge text-bg-light dashboard-count" th:text="${resumo.quantidadeIndicadores + ' registros'}">0 registros</span>
+        </div>
+        <div class="table-responsive" th:if="${!indicadores.isEmpty()}">
+            <table class="table table-striped table-hover align-middle">
+                <thead><tr><th>Mês</th><th>Operações</th><th>Peso total (kg)</th><th>Trânsito médio</th><th>Desembaraço médio</th><th>Atrasos</th><th>Custo logístico</th></tr></thead>
+                <tbody>
+                <tr th:each="i : ${indicadores}">
+                    <td class="dashboard-number" th:text="${i.mesAno != null ? #temporals.format(i.mesAno, 'MM/yyyy') : '—'}"></td>
+                    <td th:text="${i.totalOperacoes != null ? #numbers.formatInteger(i.totalOperacoes, 1, 'COMMA') : '—'}"></td>
+                    <td th:text="${i.pesoTotalKg != null ? #numbers.formatDecimal(i.pesoTotalKg, 1, 'COMMA', 2, 'POINT') : '—'}"></td>
+                    <td th:text="${i.tempoMedioTransDias != null ? #numbers.formatDecimal(i.tempoMedioTransDias, 1, 'COMMA', 1, 'POINT') + ' dias' : '—'}"></td>
+                    <td th:text="${i.tempoMedioDesDias != null ? #numbers.formatDecimal(i.tempoMedioDesDias, 1, 'COMMA', 1, 'POINT') + ' dias' : '—'}"></td>
+                    <td th:text="${i.percentualAtraso != null ? #numbers.formatDecimal(i.percentualAtraso, 1, 'COMMA', 2, 'POINT') + '%' : '—'}"></td>
+                    <td th:text="${i.custoLogisticoTotal != null ? 'R$ ' + #numbers.formatDecimal(i.custoLogisticoTotal, 1, 'COMMA', 2, 'POINT') : '—'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="empty-state" th:if="${indicadores.isEmpty()}">
+            <h2>Ainda não há indicadores registrados</h2>
+            <p>Quando os indicadores estiverem disponíveis, os totais e o histórico aparecerão neste painel.</p>
+        </div>
+    </section>
+</main>
+</body>
+</html>

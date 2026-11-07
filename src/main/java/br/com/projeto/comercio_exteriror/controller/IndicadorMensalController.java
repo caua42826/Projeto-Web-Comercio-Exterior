@@ -14,7 +14,9 @@ public class IndicadorMensalController {
 
     @GetMapping
     public String listar(Model model) {
-        model.addAttribute("indicadores", service.listarTodos());
+        var indicadores = service.listarTodos();
+        model.addAttribute("indicadores", indicadores);
+        model.addAttribute("resumo", service.obterResumoDashboard(indicadores));
         return "indicadores/lista";
     }
 }

@@ -24,6 +24,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @SpringBootTest(properties = {
@@ -66,6 +68,20 @@ class TelasMvcTests {
         for (String pagina : paginas) {
             mockMvc.perform(get(pagina)).andExpect(status().isOk());
         }
+    }
+
+    @Test
+    @Transactional
+    void inicioMostraContagensDosCadastros() throws Exception {
+        Empresa empresa = new Empresa();
+        empresa.setNome("Empresa no painel");
+        empresa.setStatus(true);
+        empresaRepository.save(empresa);
+
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("<span class=\"home-card-count\" data-categoria=\"empresas\">1</span>")))
+                .andExpect(content().string(containsString("<span class=\"home-card-count\" data-categoria=\"operacoes\">0</span>")));
     }
 
     @Test

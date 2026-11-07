@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${titulo} + ' | Comércio Exterior'">Empresa | Comércio Exterior</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <th:block th:replace="~{fragments/bootstrap :: estilos}"></th:block>
 </head>
 <body>
 <div th:replace="~{fragments/navegacao :: barra}"></div>
@@ -15,49 +15,49 @@
             <h1 th:text="${titulo}">Empresa</h1>
             <p class="subtitle">Os campos marcados com * são obrigatórios.</p>
         </div>
-        <a class="button button-secondary" th:href="@{/empresas}">Voltar</a>
+        <a class="btn button button-secondary" th:href="@{/empresas}">Voltar</a>
     </header>
 
-    <section class="panel form-panel">
+    <section class="card form-panel">
         <form th:object="${empresa}"
               th:action="${empresa.id == null} ? @{/empresas} : @{/empresas/{id}(id=${empresa.id})}"
               method="post">
-            <div class="form-grid">
-                <div class="field field-full">
+            <div class="row g-3 form-grid">
+                <div class="col-12 field field-full">
                     <label for="nome">Nome da empresa *</label>
-                    <input id="nome" type="text" th:field="*{nome}" maxlength="150" required autofocus>
-                    <small class="field-error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+                    <input class="form-control" id="nome" type="text" th:field="*{nome}" maxlength="150" required autofocus
+                    ><small class="field-error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
                 </div>
 
-                <div class="field">
+                <div class="col-md-6 field">
                     <label for="setor">Setor</label>
-                    <input id="setor" type="text" th:field="*{setor}" maxlength="100">
-                    <small class="field-error" th:if="${#fields.hasErrors('setor')}" th:errors="*{setor}"></small>
+                    <input class="form-control" id="setor" type="text" th:field="*{setor}" maxlength="100"
+                    ><small class="field-error" th:if="${#fields.hasErrors('setor')}" th:errors="*{setor}"></small>
                 </div>
-                <div class="field">
+                <div class="col-md-6 field">
                     <label for="tipoAtuacao">Tipo de atuação</label>
-                    <input id="tipoAtuacao" type="text" th:field="*{tipoAtuacao}" maxlength="100">
-                    <small class="field-error" th:if="${#fields.hasErrors('tipoAtuacao')}" th:errors="*{tipoAtuacao}"></small>
+                    <input class="form-control" id="tipoAtuacao" type="text" th:field="*{tipoAtuacao}" maxlength="100"
+                    ><small class="field-error" th:if="${#fields.hasErrors('tipoAtuacao')}" th:errors="*{tipoAtuacao}"></small>
                 </div>
-                <div class="field">
+                <div class="col-md-6 field">
                     <label for="cidade">Cidade</label>
-                    <input id="cidade" type="text" th:field="*{cidade}" maxlength="100">
-                    <small class="field-error" th:if="${#fields.hasErrors('cidade')}" th:errors="*{cidade}"></small>
+                    <input class="form-control" id="cidade" type="text" th:field="*{cidade}" maxlength="100"
+                    ><small class="field-error" th:if="${#fields.hasErrors('cidade')}" th:errors="*{cidade}"></small>
                 </div>
-                <div class="field">
+                <div class="col-md-6 field">
                     <label for="estado">Estado</label>
-                    <input id="estado" type="text" th:field="*{estado}" maxlength="100">
-                    <small class="field-error" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
+                    <input class="form-control" id="estado" type="text" th:field="*{estado}" maxlength="100"
+                    ><small class="field-error" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
                 </div>
-                <div class="field">
+                <div class="col-md-6 field">
                     <label for="porte">Porte</label>
-                    <input id="porte" type="text" th:field="*{porte}" maxlength="50">
-                    <small class="field-error" th:if="${#fields.hasErrors('porte')}" th:errors="*{porte}"></small>
+                    <input class="form-control" id="porte" type="text" th:field="*{porte}" maxlength="50"
+                    ><small class="field-error" th:if="${#fields.hasErrors('porte')}" th:errors="*{porte}"></small>
                 </div>
-                <div class="field">
+                <div class="col-md-6 field">
                     <label for="status">Status *</label>
-                    <select id="status" th:field="*{status}" required>
-                        <option value="">Selecione</option>
+                    <select class="form-select" id="status" th:field="*{status}" required
+                        ><option value="">Selecione</option>
                         <option value="true">Ativa</option>
                         <option value="false">Inativa</option>
                     </select>
@@ -66,8 +66,8 @@
             </div>
 
             <div class="form-actions">
-                <a class="button button-secondary" th:href="@{/empresas}">Cancelar</a>
-                <button class="button button-primary" type="submit">Salvar empresa</button>
+                <a class="btn button button-secondary" th:href="@{/empresas}">Cancelar</a>
+                <button class="btn button button-primary" type="submit">Salvar empresa</button>
             </div>
         </form>
     </section>
