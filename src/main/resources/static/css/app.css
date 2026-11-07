@@ -56,16 +56,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     text-decoration: none;
 }
 .brand-mark {
-    display: grid;
-    width: 39px;
-    height: 39px;
-    place-items: center;
-    border-radius: 11px;
-    color: var(--imperial-blue);
+    display: block;
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    padding: 4px;
+    border-radius: 13px;
     background: var(--chartreuse);
-    font-size: 13px;
-    font-weight: 900;
-    letter-spacing: -.06em;
+    object-fit: contain;
 }
 .brand-name { display: block; font-size: 14px; font-weight: 750; letter-spacing: .01em; }
 .brand-caption { display: block; margin-top: 3px; color: rgb(255 255 252 / 66%); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
