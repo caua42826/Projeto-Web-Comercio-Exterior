@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Administração | Comércio Exterior</title><th:block th:replace="~{fragments/bootstrap :: estilos}"></th:block></head>
+<body>
+<div th:replace="~{fragments/navegacao :: barra}"></div>
+<main class="container dashboard-page">
+    <header class="page-header"><div><p class="eyebrow">Área administrativa</p><h1>Administração</h1><p class="subtitle">Acesso e visão geral dos registros do sistema.</p></div><a class="btn button button-secondary" th:href="@{/}">Voltar ao sistema</a></header>
+    <section class="row g-3 dashboard-stats" aria-label="Indicadores administrativos">
+        <div class="col-12 col-sm-6 col-xl-3"><article class="card dashboard-stat h-100"><div class="card-body"><span class="dashboard-stat-label">Usuários ativos</span><strong class="dashboard-stat-value" th:text="${resumo.usuariosAtivos}">0</strong><span class="dashboard-stat-note" th:text="${resumo.usuariosTotal + ' contas cadastradas'}"></span></div></article></div>
+        <div class="col-12 col-sm-6 col-xl-3"><article class="card dashboard-stat h-100"><div class="card-body"><span class="dashboard-stat-label">Perfis</span><strong class="dashboard-stat-value" th:text="${resumo.perfis}">0</strong><span class="dashboard-stat-note">Papéis de acesso configurados</span></div></article></div>
+        <div class="col-12 col-sm-6 col-xl-3"><article class="card dashboard-stat h-100"><div class="card-body"><span class="dashboard-stat-label">Permissões</span><strong class="dashboard-stat-value" th:text="${resumo.permissoes}">0</strong><span class="dashboard-stat-note">Autorizações disponíveis</span></div></article></div>
+        <div class="col-12 col-sm-6 col-xl-3"><article class="card dashboard-stat h-100"><div class="card-body"><span class="dashboard-stat-label">Operações</span><strong class="dashboard-stat-value" th:text="${resumo.cadastros.operacoes}">0</strong><span class="dashboard-stat-note">Registros operacionais</span></div></article></div>
+    </section>
+    <section class="row g-3 admin-shortcuts mt-3">
+        <div class="col-12 col-md-4"><a class="home-card card" th:href="@{/admin/usuarios}"><strong>Usuários</strong><span>Criar contas, gerenciar perfis e redefinir senhas.</span></a></div>
+        <div class="col-12 col-md-4"><a class="home-card card" th:href="@{/admin/perfis}"><strong>Perfis</strong><span>Associar permissões e controlar os papéis.</span></a></div>
+        <div class="col-12 col-md-4"><a class="home-card card" th:href="@{/admin/permissoes}"><strong>Permissões</strong><span>Consultar e administrar as autorizações.</span></a></div>
+    </section>
+    <section class="panel admin-counts mt-4">
+        <h2>Cadastros do sistema</h2>
+        <dl><div><dt>Empresas</dt><dd th:text="${resumo.cadastros.empresas}">0</dd></div><div><dt>Parceiros</dt><dd th:text="${resumo.cadastros.parceiros}">0</dd></div><div><dt>Produtos</dt><dd th:text="${resumo.cadastros.produtos}">0</dd></div><div><dt>Transportadoras</dt><dd th:text="${resumo.cadastros.transportadoras}">0</dd></div><div><dt>Taxas de câmbio</dt><dd th:text="${resumo.cadastros.taxasCambio}">0</dd></div><div><dt>Indicadores</dt><dd th:text="${resumo.cadastros.indicadores}">0</dd></div></dl>
+    </section>
+</main>
+</body>
+</html>

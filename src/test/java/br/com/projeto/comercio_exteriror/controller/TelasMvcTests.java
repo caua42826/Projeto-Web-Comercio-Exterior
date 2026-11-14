@@ -34,7 +34,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
         "spring.h2.console.enabled=false"
 })
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username = "admin", authorities = {"ROLE_ADMIN", "DADOS_CONSULTAR", "DADOS_GERENCIAR"})
 class TelasMvcTests {
 
     @Autowired

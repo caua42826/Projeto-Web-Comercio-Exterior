@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Usuário | Administração</title><th:block th:replace="~{fragments/bootstrap :: estilos}"></th:block></head>
+<body>
+<div th:replace="~{fragments/navegacao :: barra}"></div>
+<main class="container container-narrow">
+    <header class="page-header"><div><p class="eyebrow">Administração</p><h1 th:text="${usuarioResumo != null ? 'Editar usuário' : 'Novo usuário'}">Novo usuário</h1><p class="subtitle">As senhas são armazenadas com hash BCrypt e nunca aparecem nesta tela.</p></div><a class="btn button button-secondary" th:href="@{/admin/usuarios}">Voltar</a></header>
+    <section class="card form-panel">
+        <form th:object="${usuario}" th:action="${usuarioResumo != null} ? @{/admin/usuarios/{id}(id=${usuarioResumo.id})} : @{/admin/usuarios}" method="post">
+            <div class="row g-3 form-grid">
+                <div class="col-12 field"><label for="nomeCompleto">Nome completo</label><input class="form-control" id="nomeCompleto" type="text" th:field="*{nomeCompleto}" maxlength="150" required><small class="field-error" th:if="${#fields.hasErrors('nomeCompleto')}" th:errors="*{nomeCompleto}"></small></div>
+                <div class="col-md-6 field"><label for="username">Nome de usuário</label><input class="form-control" id="username" type="text" th:field="*{username}" maxlength="60" autocomplete="username" required><small class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small></div>
+                <div class="col-md-6 field"><label for="email">E-mail</label><input class="form-control" id="email" type="email" th:field="*{email}" maxlength="180" required><small class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small></div>
+                <div class="col-12 field"><label for="senha" th:text="${usuarioResumo != null ? 'Nova senha (opcional)' : 'Senha inicial'}">Senha inicial</label><input class="form-control" id="senha" name="senha" type="password" minlength="10" maxlength="72" autocomplete="new-password" th:required="${usuarioResumo == null}"><small class="field-error" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></small><small class="form-hint" th:if="${usuarioResumo != null}">Deixe em branco para manter a senha atual. Uma senha nova exigirá troca no próximo acesso.</small></div>
+                <div class="col-12 field"><span class="field-label">Perfis de acesso</span><div class="check-list"><label class="check-option" th:each="perfil : ${perfis}"><input class="form-check-input" type="checkbox" th:field="*{perfisIds}" th:value="${perfil.id}"><span><strong th:text="${perfil.nome}"></strong><small th:text="${perfil.descricao}"></small></span></label></div><small class="field-error" th:if="${#fields.hasErrors('perfisIds')}" th:errors="*{perfisIds}"></small></div>
+                <div class="col-12 field"><label class="check-option"><input class="form-check-input" type="checkbox" th:field="*{ativo}"><span><strong>Conta ativa</strong><small>Contas inativas não conseguem autenticar.</small></span></label></div>
+            </div>
+            <div class="form-actions"><a class="btn button button-secondary" th:href="@{/admin/usuarios}">Cancelar</a><button class="btn button button-primary" type="submit">Salvar usuário</button></div>
+        </form>
+    </section>
+</main>
+<script th:src="@{/js/password-visibility.js}" defer></script>
+</body>
+</html>

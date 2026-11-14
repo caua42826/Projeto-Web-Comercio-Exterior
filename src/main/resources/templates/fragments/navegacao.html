@@ -7,7 +7,7 @@
                 <span class="brand-caption">Gestão de operações</span>
             </span>
         </a>
-        <nav class="site-nav" aria-label="Navegação principal">
+        <nav class="site-nav" aria-label="Navegação principal" th:if="${usuarioAutenticado != null}">
             <a th:href="@{/}">Início</a>
             <a th:href="@{/operacoes}">Operações</a>
             <a th:href="@{/empresas}">Empresas</a>
@@ -17,5 +17,13 @@
             <a th:href="@{/taxas-cambio}">Câmbio</a>
             <a th:href="@{/indicadores}">Indicadores</a>
         </nav>
+        <div class="site-user-actions" th:if="${usuarioAutenticado != null}">
+            <a class="user-action" th:if="${isAdmin}" th:href="@{/admin}">Administração</a>
+            <a class="user-action" th:href="@{/conta/senha}">Minha senha</a>
+            <span class="site-user-name" th:text="${usuarioAutenticado}"></span>
+            <form th:action="@{/logout}" method="post">
+                <button class="btn button button-small button-secondary" type="submit">Sair</button>
+            </form>
+        </div>
     </div>
 </header>

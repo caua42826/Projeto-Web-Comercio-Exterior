@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Alterar senha | Comércio Exterior</title><th:block th:replace="~{fragments/bootstrap :: estilos}"></th:block></head>
+<body>
+<div th:replace="~{fragments/navegacao :: barra}"></div>
+<main class="container container-narrow">
+    <header class="page-header"><div><p class="eyebrow">Segurança da conta</p><h1>Alterar senha</h1><p class="subtitle">A senha deve ter ao menos 10 caracteres, incluindo maiúscula, minúscula, número e símbolo.</p></div></header>
+    <div class="notice notice-error" role="alert" th:if="${alteracaoObrigatoria}">Antes de continuar, defina uma senha pessoal.</div>
+    <section class="card form-panel">
+        <form th:object="${alterarSenha}" th:action="@{/conta/senha}" method="post">
+            <div class="row g-3 form-grid">
+                <div class="col-12 field"><label for="senhaAtual">Senha atual</label><input class="form-control" id="senhaAtual" type="password" th:field="*{senhaAtual}" autocomplete="current-password" required><small class="field-error" th:if="${#fields.hasErrors('senhaAtual')}" th:errors="*{senhaAtual}"></small></div>
+                <div class="col-md-6 field"><label for="novaSenha">Nova senha</label><input class="form-control" id="novaSenha" type="password" th:field="*{novaSenha}" autocomplete="new-password" required><small class="field-error" th:if="${#fields.hasErrors('novaSenha')}" th:errors="*{novaSenha}"></small></div>
+                <div class="col-md-6 field"><label for="confirmarSenha">Confirmar nova senha</label><input class="form-control" id="confirmarSenha" type="password" th:field="*{confirmarSenha}" autocomplete="new-password" required><small class="field-error" th:if="${#fields.hasErrors('confirmarSenha')}" th:errors="*{confirmarSenha}"></small></div>
+            </div>
+            <div class="form-actions"><button class="btn button button-primary" type="submit">Salvar nova senha</button></div>
+        </form>
+    </section>
+</main>
+<script th:src="@{/js/password-visibility.js}" defer></script>
+</body>
+</html>

@@ -6,6 +6,7 @@ import br.com.projeto.comercio_exteriror.model.Documento;
 import br.com.projeto.comercio_exteriror.model.custo.CustoLogistico;
 import br.com.projeto.comercio_exteriror.repository.OperacaoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@PreAuthorize("hasAuthority('DADOS_CONSULTAR') or hasAuthority('DADOS_GERENCIAR') or hasRole('ADMIN')")
 public class OperacaoService {
     private final OperacaoRepository repository;
 
@@ -21,9 +23,11 @@ public class OperacaoService {
     public Optional<Operacao> buscarPorId(Integer id) { return repository.findById(id); }
 
     @Transactional
+    @PreAuthorize("hasAuthority('DADOS_GERENCIAR') or hasRole('ADMIN')")
     public Operacao salvar(Operacao operacao) { return repository.save(operacao); }
 
     @Transactional
+    @PreAuthorize("hasAuthority('DADOS_GERENCIAR') or hasRole('ADMIN')")
     public Optional<Operacao> adicionarItem(Integer idOperacao, ItemOperacao item) {
         return repository.findById(idOperacao).map(operacao -> {
             item.setOperacao(operacao);
@@ -33,6 +37,7 @@ public class OperacaoService {
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority('DADOS_GERENCIAR') or hasRole('ADMIN')")
     public Optional<Operacao> removerItem(Integer idOperacao, Integer idItem) {
         return repository.findById(idOperacao).map(operacao -> {
             operacao.getItens().removeIf(item -> item.getId().equals(idItem));
@@ -41,6 +46,7 @@ public class OperacaoService {
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority('DADOS_GERENCIAR') or hasRole('ADMIN')")
     public Optional<Operacao> adicionarDocumento(Integer idOperacao, Documento documento) {
         return repository.findById(idOperacao).map(operacao -> {
             documento.setOperacao(operacao);
@@ -50,6 +56,7 @@ public class OperacaoService {
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority('DADOS_GERENCIAR') or hasRole('ADMIN')")
     public Optional<Operacao> removerDocumento(Integer idOperacao, Integer idDocumento) {
         return repository.findById(idOperacao).map(operacao -> {
             operacao.getDocumentos().removeIf(documento -> documento.getId().equals(idDocumento));
@@ -58,6 +65,7 @@ public class OperacaoService {
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority('DADOS_GERENCIAR') or hasRole('ADMIN')")
     public Optional<Operacao> salvarCustoLogistico(Integer idOperacao, CustoLogistico custo) {
         return repository.findById(idOperacao).map(operacao -> {
             CustoLogistico destino = operacao.getCustoLogistico();

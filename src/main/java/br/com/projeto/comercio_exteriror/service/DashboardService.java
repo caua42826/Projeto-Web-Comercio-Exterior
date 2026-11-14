@@ -2,10 +2,12 @@ package br.com.projeto.comercio_exteriror.service;
 
 import br.com.projeto.comercio_exteriror.repository.*;
 import org.springframework.stereotype.Service;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
+@PreAuthorize("hasAuthority('DADOS_CONSULTAR') or hasAuthority('DADOS_GERENCIAR') or hasRole('ADMIN')")
 public class DashboardService {
     private final OperacaoRepository operacoes;
     private final EmpresaRepository empresas;

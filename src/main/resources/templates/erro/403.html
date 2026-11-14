@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Acesso negado | Comércio Exterior</title><th:block th:replace="~{fragments/bootstrap :: estilos}"></th:block></head>
+<body>
+<div th:replace="~{fragments/navegacao :: barra}"></div>
+<main class="container container-narrow">
+    <section class="panel empty-state">
+        <p class="eyebrow">Acesso restrito</p>
+        <h1>Você não tem permissão para esta ação</h1>
+        <p>Sua conta não possui o perfil ou a permissão necessários para acessar este recurso.</p>
+        <a class="btn button button-primary" th:href="@{/}">Voltar ao início</a>
+    </section>
+</main>
+</body>
+</html>
