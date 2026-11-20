@@ -10,7 +10,20 @@
             <div class="col-md-6 field"><label for="codigo">Código</label><input class="form-control" id="codigo" type="text" th:field="*{codigo}" maxlength="60" th:readonly="${perfilId != null}" required><small class="field-error" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></small></div>
             <div class="col-md-6 field"><label for="nome">Nome</label><input class="form-control" id="nome" type="text" th:field="*{nome}" maxlength="100" required><small class="field-error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small></div>
             <div class="col-12 field"><label for="descricao">Descrição</label><input class="form-control" id="descricao" type="text" th:field="*{descricao}" maxlength="250"></div>
-            <div class="col-12 field"><span class="field-label">Permissões</span><div class="check-list"><label class="check-option" th:each="permissao : ${permissoes}"><input class="form-check-input" type="checkbox" th:field="*{permissoesIds}" th:value="${permissao.id}"><span><strong th:text="${permissao.nome}"></strong><small><code th:text="${permissao.codigo}"></code> · <span th:text="${permissao.descricao}"></span></small></span></label></div><small class="field-error" th:if="${#fields.hasErrors('permissoesIds')}" th:errors="*{permissoesIds}"></small></div>
+            <div class="col-12 field permission-field">
+                <span class="field-label">Permissões deste perfil</span>
+                <p class="permission-help">Marque o que os usuários com este perfil poderão fazer. As opções são cumulativas: cada pessoa recebe todas as permissões selecionadas.</p>
+                <div class="check-list">
+                    <label class="check-option" th:each="permissao : ${permissoes}">
+                        <input class="form-check-input" type="checkbox" th:field="*{permissoesIds}" th:value="${permissao.id}">
+                        <span>
+                            <strong th:text="${permissao.nome}"></strong>
+                            <small><code th:text="${permissao.codigo}"></code><span th:text="${' — ' + permissao.descricao}"></span></small>
+                        </span>
+                    </label>
+                </div>
+                <small class="field-error" th:if="${#fields.hasErrors('permissoesIds')}" th:errors="*{permissoesIds}"></small>
+            </div>
             <div class="col-12 field"><label class="check-option"><input class="form-check-input" type="checkbox" th:field="*{ativo}"><span><strong>Perfil ativo</strong><small>Perfis inativos não concedem permissões.</small></span></label></div>
         </div>
         <div class="form-actions"><a class="btn button button-secondary" th:href="@{/admin/perfis}">Cancelar</a><button class="btn button button-primary" type="submit">Salvar perfil</button></div>

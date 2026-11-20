@@ -32,7 +32,7 @@
                     <th>Porte</th>
                     <th>Atuação</th>
                     <th>Status</th>
-                    <th class="actions-heading">Ações</th>
+                    <th class="actions-heading" th:if="${podeGerenciarDados}">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,7 @@
                         <span class="badge" th:classappend="${empresa.status} ? ' badge-active' : ' badge-inactive'"
                               th:text="${empresa.status} ? 'Ativa' : 'Inativa'">Ativa</span>
                     </td>
-                    <td class="actions">
+                    <td class="actions" th:if="${podeGerenciarDados}">
                         <a th:if="${podeGerenciarDados}" class="btn button button-small button-secondary"
                            th:href="@{/empresas/{id}/editar(id=${empresa.id})}">Editar</a>
                         <form th:if="${empresa.status and podeGerenciarDados}" th:action="@{/empresas/{id}/desativar(id=${empresa.id})}" method="post">

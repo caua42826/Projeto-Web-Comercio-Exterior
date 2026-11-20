@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Comércio Exterior</title><th:block th:replace="~{fragments/bootstrap :: estilos}"></th:block></head>
 <body>
-<div th:replace="~{fragments/navegacao :: barra}"></div><main class="container"><header class="page-header"><div><p class="eyebrow">Projeto acadêmico</p><h1>Comércio Exterior</h1><p class="subtitle">Acesse os cadastros e acompanhe as operações.</p></div></header>
+<div th:replace="~{fragments/navegacao :: barra}"></div><main class="container"><header class="page-header"><div><p class="eyebrow">Projeto acadêmico</p><h1>Visão geral</h1><p class="subtitle">Acesse os cadastros e acompanhe as operações.</p></div></header>
 <section class="home-grid">
 <a class="home-card card" th:href="@{/operacoes}"><strong>Operações</strong><span>Registros e dados associados</span><span class="home-card-count" data-categoria="operacoes" th:text="${contagens.operacoes}">0</span><span class="home-card-total">Total cadastrado</span></a>
 <a class="home-card card" th:href="@{/empresas}"><strong>Empresas</strong><span>Empresas participantes</span><span class="home-card-count" data-categoria="empresas" th:text="${contagens.empresas}">0</span><span class="home-card-total">Total cadastrado</span></a>

@@ -125,7 +125,7 @@ h1::after { display: block; width: 44px; height: 4px; margin-top: 12px; border-r
     box-shadow: 0 12px 32px rgb(3 37 108 / 6%);
 }
 .table-scroll { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; text-align: left; }
+table { width: 100%; border-collapse: collapse; text-align: center; }
 th, td { padding: 15px 16px; border-bottom: 1px solid #e8edf5; vertical-align: middle; }
 th { color: var(--porcelain); background: var(--imperial-blue); font-size: 10px; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap; }
 td { color: #304465; font-size: 13px; }
@@ -134,8 +134,10 @@ tbody tr:nth-child(even) { background: #f8faff; }
 tbody tr:hover { background: #eef6ff; }
 tbody tr:last-child td { border-bottom: 0; }
 .strong { color: var(--imperial-blue); font-weight: 700; }
-.actions-heading { text-align: right; }
-.actions { display: flex; justify-content: flex-end; align-items: center; gap: 8px; white-space: nowrap; }
+.actions-heading { text-align: center; }
+.actions { text-align: center; white-space: nowrap; }
+.actions > a, .actions > form { display: inline-flex; vertical-align: middle; }
+.actions > a + a, .actions > a + form, .actions > form + a, .actions > form + form { margin-left: 8px; }
 .actions form { margin: 0; }
 
 .button {
@@ -307,9 +309,10 @@ tbody tr:last-child td { border-bottom: 0; }
 .cinematic-title {
     margin: 0;
     color: #fff;
+    font-family: "Ubuntu", sans-serif;
     font-size: clamp(2.8rem, 9vw, 8.5rem);
     font-weight: 650;
-    letter-spacing: clamp(.08em, 1.2vw, .2em);
+    letter-spacing: clamp(.05em, .8vw, .13em);
     line-height: 1;
     text-align: center;
     text-shadow: 0 3px 28px rgb(0 0 0 / 35%);
@@ -359,6 +362,25 @@ tbody tr:last-child td { border-bottom: 0; }
 .check-list { display: grid; gap: 9px; }
 .check-option { display: flex; align-items: flex-start; gap: 11px; padding: 12px 13px; border: 1px solid var(--line); border-radius: 9px; background: #fbfcff; cursor: pointer; }
 .check-option .form-check-input { flex: 0 0 auto; margin: 2px 0 0; accent-color: var(--imperial-blue); }
+.field .check-option .form-check-input {
+    width: 18px;
+    height: 18px;
+    min-height: 18px;
+    flex: 0 0 18px;
+    margin: 2px 0 0;
+    padding: 0;
+    appearance: auto;
+    border: 1px solid #9aacc5;
+    border-radius: 4px;
+    background: #fff;
+}
+.permission-field { gap: 7px; }
+.permission-help { margin: 0 0 5px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.permission-field .check-list { width: 100%; }
+.permission-field .check-option { align-items: flex-start; min-width: 0; }
+.permission-field .check-option > span { min-width: 0; }
+.permission-field .check-option small { color: var(--muted); line-height: 1.45; }
+.permission-field .check-option code { color: #285a9f; font-size: 10px; font-weight: 700; }
 .check-option strong, .check-option small { display: block; }
 .check-option strong { color: var(--imperial-blue); font-size: 12px; }
 .check-option small { margin-top: 3px; color: var(--muted); font-size: 11px; }
@@ -402,7 +424,7 @@ tbody tr:last-child td { border-bottom: 0; }
     .login-auth-shell { margin: 0 auto; }
     .login-auth-card { padding: 25px 21px; }
     .cinematic-hero { min-height: 460px; }
-    .cinematic-title { max-width: calc(100% - 28px); font-size: clamp(2.5rem, 12vw, 5rem); letter-spacing: .07em; }
+    .cinematic-title { max-width: calc(100% - 28px); font-size: clamp(2.5rem, 12vw, 5rem); letter-spacing: .04em; }
     .cinematic-subtitle { margin-top: 19px; }
     .cinematic-tagline { max-width: 340px; margin-right: auto; margin-left: auto; }
     .admin-counts dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
