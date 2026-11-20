@@ -3,36 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Entrar | Comércio Exterior</title>
+    <meta name="theme-color" content="#061a3b">
+    <title>HORIZONTEZS | Acesso</title>
     <th:block th:replace="~{fragments/bootstrap :: estilos}"></th:block>
 </head>
-<body>
-<div th:replace="~{fragments/navegacao :: barra}"></div>
-<main class="auth-shell">
-    <section class="card auth-card">
-        <p class="eyebrow">Acesso seguro</p>
-        <h1>Entrar no sistema</h1>
-        <p class="subtitle">Use seu nome de usuário e senha para continuar.</p>
+<body class="login-page">
+<div class="cinematic-background" aria-hidden="true">
+    <div class="cinematic-media">
+        <video class="cinematic-video is-active" autoplay muted playsinline preload="auto">
+            <source th:src="@{/videos/video-aviao.mp4}" type="video/mp4">
+        </video>
+        <video class="cinematic-video" muted playsinline preload="auto">
+            <source th:src="@{/videos/video-trem.mp4}" type="video/mp4">
+        </video>
+    </div>
+    <div class="cinematic-overlay"></div>
+</div>
+<main>
+    <section class="cinematic-hero" aria-label="Apresentação institucional HORIZONTEZS">
+        <div class="cinematic-brand">
+            <h1 class="cinematic-title">HORIZONTEZS</h1>
+            <p class="cinematic-subtitle">O mundo gira. Nós movimentamos.</p>
+            <p class="cinematic-tagline">Conectando o mundo, movendo o futuro.</p>
+        </div>
+        <a class="scroll-cue" href="#acesso" aria-label="Rolar para acessar o sistema">
+            <span>Acessar o sistema</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+        </a>
+    </section>
 
-        <div class="notice notice-error" role="alert" th:if="${param.erro}">Usuário ou senha inválidos.</div>
-        <div class="notice notice-error" role="alert" th:if="${param.bloqueado}">Esta conta está inativa. Procure um administrador.</div>
-        <div class="notice notice-error" role="alert" th:if="${param.expirada}">Sua sessão expirou. Entre novamente.</div>
-        <div class="notice notice-success" role="status" th:if="${param.logout}">Você saiu do sistema com segurança.</div>
-        <div class="notice notice-success" role="status" th:if="${param.senhaAtualizada}">Senha atualizada. Entre novamente com a nova senha.</div>
+    <section class="login-section" id="acesso" aria-labelledby="login-title">
+        <div class="auth-shell login-auth-shell">
+            <section class="card auth-card login-auth-card">
+                <p class="eyebrow">Área do cliente</p>
+                <h2 id="login-title">Acesse sua conta</h2>
+                <p class="subtitle">Entre para acompanhar suas operações de comércio exterior.</p>
 
-        <form th:action="@{/login}" method="post" class="auth-form">
-            <div class="field">
-                <label for="username">Usuário</label>
-                <input class="form-control" id="username" name="username" type="text" autocomplete="username" required autofocus>
-            </div>
-            <div class="field">
-                <label for="password">Senha</label>
-                <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required>
-            </div>
-            <button class="btn button button-primary w-100" type="submit">Entrar</button>
-        </form>
+                <div class="notice notice-error" role="alert" th:if="${param.erro}">Usuário ou senha inválidos.</div>
+                <div class="notice notice-error" role="alert" th:if="${param.bloqueado}">Esta conta está inativa. Procure um administrador.</div>
+                <div class="notice notice-error" role="alert" th:if="${param.expirada}">Sua sessão expirou. Entre novamente.</div>
+                <div class="notice notice-success" role="status" th:if="${param.logout}">Você saiu do sistema com segurança.</div>
+                <div class="notice notice-success" role="status" th:if="${param.senhaAtualizada}">Senha atualizada. Entre novamente com a nova senha.</div>
+
+                <form th:action="@{/login}" method="post" class="auth-form">
+                    <div class="field">
+                        <label for="username">Usuário</label>
+                        <input class="form-control" id="username" name="username" type="text" autocomplete="username" required autofocus>
+                    </div>
+                    <div class="field">
+                        <label for="password">Senha</label>
+                        <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required>
+                    </div>
+                    <button class="btn button button-primary w-100" type="submit">Entrar</button>
+                </form>
+            </section>
+        </div>
     </section>
 </main>
+<script th:src="@{/js/login-video.js}" defer></script>
 <script th:src="@{/js/password-visibility.js}" defer></script>
 </body>
 </html>

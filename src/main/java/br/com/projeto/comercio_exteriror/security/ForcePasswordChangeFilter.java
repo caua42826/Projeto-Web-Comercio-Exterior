@@ -20,7 +20,8 @@ public class ForcePasswordChangeFilter extends OncePerRequestFilter {
         String path = request.getRequestURI().substring(request.getContextPath().length());
         boolean recursoPublico = path.equals("/login") || path.equals("/logout")
                 || path.startsWith("/css/") || path.startsWith("/js/")
-                || path.startsWith("/images/") || path.equals("/favicon.ico");
+                || path.startsWith("/images/") || path.startsWith("/videos/")
+                || path.equals("/favicon.ico");
         boolean alteracaoDeSenha = path.equals("/conta/senha");
 
         if (!recursoPublico && !alteracaoDeSenha && authentication != null

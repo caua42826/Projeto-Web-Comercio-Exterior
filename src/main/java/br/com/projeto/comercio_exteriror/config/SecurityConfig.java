@@ -49,7 +49,7 @@ public class SecurityConfig {
         http
                 .authenticationProvider(authenticationProvider)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/error", "/acesso-negado", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/login", "/error", "/acesso-negado", "/css/**", "/js/**", "/images/**", "/videos/**", "/favicon.ico").permitAll()
                         .requestMatchers("/admin/**", "/h2-console/**").hasRole("ADMIN")
                         .requestMatchers("/conta/**").authenticated()
                         .requestMatchers(HttpMethod.GET,

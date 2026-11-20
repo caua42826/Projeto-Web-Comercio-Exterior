@@ -269,6 +269,91 @@ tbody tr:last-child td { border-bottom: 0; }
 .auth-card h1 { font-size: 30px; }
 .auth-form { display: grid; gap: 19px; margin-top: 25px; }
 .auth-form .button { min-height: 46px; }
+.login-page { background: #061a3b; }
+.cinematic-background {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    background: #061a3b;
+    pointer-events: none;
+}
+.login-page > main { position: relative; z-index: 1; }
+.cinematic-hero {
+    position: relative;
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
+    overflow: hidden;
+    place-items: center;
+    background: transparent;
+}
+.cinematic-media, .cinematic-overlay { position: absolute; inset: 0; }
+.cinematic-media { overflow: hidden; }
+.cinematic-overlay { z-index: 1; background: rgb(0 0 0 / 55%); }
+.cinematic-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.25s ease-in-out;
+}
+.cinematic-video.is-active { opacity: 1; }
+.cinematic-brand { width: min(1100px, calc(100% - 36px)); text-align: center; }
+.cinematic-title {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.8rem, 9vw, 8.5rem);
+    font-weight: 650;
+    letter-spacing: clamp(.08em, 1.2vw, .2em);
+    line-height: 1;
+    text-align: center;
+    text-shadow: 0 3px 28px rgb(0 0 0 / 35%);
+}
+.cinematic-title::after { display: none; }
+.cinematic-subtitle { margin: 24px 0 0; color: #fff; font-size: clamp(1.15rem, 2.4vw, 2rem); font-weight: 550; letter-spacing: .025em; line-height: 1.35; text-shadow: 0 2px 18px rgb(0 0 0 / 48%); }
+.cinematic-tagline { margin: 13px 0 0; color: rgb(255 255 255 / 86%); font-size: clamp(.95rem, 1.55vw, 1.2rem); font-weight: 400; letter-spacing: .035em; line-height: 1.5; text-shadow: 0 2px 16px rgb(0 0 0 / 48%); }
+.scroll-cue {
+    position: absolute;
+    right: 0;
+    bottom: max(28px, env(safe-area-inset-bottom));
+    left: 0;
+    display: grid;
+    justify-items: center;
+    gap: 9px;
+    width: max-content;
+    margin: auto;
+    color: rgb(255 255 255 / 88%);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.scroll-cue svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; animation: scroll-cue-bob 1.8s ease-in-out infinite; }
+.scroll-cue:hover { color: var(--chartreuse); }
+@keyframes scroll-cue-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+.login-section {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100svh;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 16px;
+    background: transparent;
+    scroll-margin-top: 20px;
+}
+.login-auth-shell { margin: 0 auto; }
+.login-auth-card { padding: 36px; }
+.login-auth-card h2 { margin: 0; color: var(--imperial-blue); font-size: 30px; font-weight: 760; letter-spacing: -.04em; }
+.login-auth-card .subtitle { margin-top: 9px; }
+.login-auth-card .notice { margin-top: 18px; }
+.login-auth-card .auth-form { margin-top: 27px; }
+.login-auth-card .auth-form .button { margin-top: 4px; }
 .form-hint { color: var(--muted); font-size: 11px; line-height: 1.5; }
 .field-label { color: #223b69; font-size: 12px; font-weight: 750; }
 .check-list { display: grid; gap: 9px; }
@@ -313,6 +398,13 @@ tbody tr:last-child td { border-bottom: 0; }
     .form-actions > * { flex: 1; }
     .auth-shell { margin-top: 28px; }
     .auth-card { padding: 22px; }
+    .login-section { padding: 36px 12px; }
+    .login-auth-shell { margin: 0 auto; }
+    .login-auth-card { padding: 25px 21px; }
+    .cinematic-hero { min-height: 460px; }
+    .cinematic-title { max-width: calc(100% - 28px); font-size: clamp(2.5rem, 12vw, 5rem); letter-spacing: .07em; }
+    .cinematic-subtitle { margin-top: 19px; }
+    .cinematic-tagline { max-width: 340px; margin-right: auto; margin-left: auto; }
     .admin-counts dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 420px) {
@@ -323,4 +415,5 @@ tbody tr:last-child td { border-bottom: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    .scroll-cue svg { animation: none; }
 }
